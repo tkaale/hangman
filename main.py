@@ -22,28 +22,32 @@ def check_user_letter():
             continue
     return user_letter
 
-
-def check_letter_to_word(word, user_letter):
-    word_list = list(word.strip(''))
-    for letter in word_list:
-        if letter == user_letter.lower():
-            print('Right')
-        else:
-            print('Wrong')
-
 def display(word):
     display_list = []
     for letter in word:
         display_list.append('_')
-    print(' '.join(display_list))
+    return display_list
+
+def check_letter_to_word(word, user_letter, display_list):
+    for position in range(len(word)):
+        letter = word[position]
+        if letter == user_letter.lower():
+            display_list[position] = user_letter
+    return display_list
+    
+
 
 
 def main():
     word = pick_random_word('words.csv') # wybiera losowe słowo z pliku csv
     print(word) #checking
-    display(word)
-    user_letter = check_user_letter() # sprawdza poprawność wpisanej danej
-    check_letter_to_word(word, user_letter) # printuje false/true w zależności czy dana litera jest w słowie
+    display_list = display(word)
+    print(' '.join(display_list))
+
+    
+    user_letter = check_user_letter()
+    guessed = ' '.join(check_letter_to_word(word, user_letter, display_list))
+
     
 if __name__=='__main__':
     main()
