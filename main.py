@@ -1,3 +1,4 @@
+from distutils.command import check
 import ascii_graphics, data_menager, random
 
 #ALPHABET = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -18,25 +19,30 @@ def check_user_letter():
                 print('This have to be just ONE letter.')
                 continue
         else:
-            print('Not a letter.')
+            print('Not a letter. Try one more time.')
             continue
     return user_letter
 
+
 def check_letter_to_word(word, user_letter):
     word_list = list(word.strip(''))
-    if user_letter.lower() in word_list:
-        return True
-    else:
-        return False
-
+    # if user_letter.lower() in word_list:
+    #     return True
+    # else:
+    #     return False
+    for letter in word_list:
+        if letter == user_letter.lower():
+            print('Right')
+        else:
+            print('Wrong')
 
 
 
 def main():
-    word = pick_random_word('hangman/words.csv')
+    word = pick_random_word('words.csv') # wybiera losowe słowo z pliku csv
     print(word)
-    user_letter = check_user_letter()
-    print(check_letter_to_word(word, user_letter))
+    user_letter = check_user_letter() # sprawdza poprawność wpisanej danej
+    check_letter_to_word(word, user_letter) # printuje false/true w zależności czy dana litera jest w słowie
     
 if __name__=='__main__':
     main()
