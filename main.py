@@ -63,8 +63,7 @@ def guessing_word(word, display_list):
                 break
 
 def main():
-    word = pick_random_word('words.csv') # wybiera losowe słowo z pliku csv
-    print(word) #checking
+    word = pick_random_word('words.csv')   
     display_list = display(word)
     print(' '.join(display_list))
     guessing_word(word, display_list)
