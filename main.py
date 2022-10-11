@@ -1,5 +1,7 @@
 import ascii_graphics, data_menager, random
 
+LIVES = 0
+
 
 def pick_random_word(filename):
     words_list = data_menager.get_table_from_file(filename)
@@ -35,16 +37,30 @@ def check_letter_to_word(word, user_letter, display_list):
         if letter == user_letter.lower():
             display_list[position] = user_letter
     return display_list
+
+    
+def print_lives(LIVES):
+    print(ascii_graphics.lives_graphics[LIVES - 1])
+
     
 def guessing_word(word, display_list):
-    while True:
-        if '_' in display_list:
-            user_letter = check_user_letter()
-            guessed = ' '.join(check_letter_to_word(word, user_letter, display_list))
-            print(guessed)
-        else:
-            print('You have win.')
+    global LIVES
+    while LIVES <= 7:
+        if LIVES == 7:
+            print('You failed.')
             break
+        else:
+            if '_' in display_list:
+                user_letter = check_user_letter()
+                if user_letter.lower() in word:
+                    guessed = ' '.join(check_letter_to_word(word, user_letter,  display_list))
+                    print(guessed)
+                else:
+                    LIVES += 1
+                    print_lives(LIVES)
+            else:
+                print('You have win.')
+                break
 
 def main():
     word = pick_random_word('words.csv') # wybiera losowe słowo z pliku csv
